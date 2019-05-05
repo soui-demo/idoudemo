@@ -2,7 +2,8 @@
 #include "CDataCenter.h"
 #include "TV_iOSDeviceAdapter.h"
 
-CDataCenter* CDataCenter::ms_Singleton = NULL;
+template<>
+CDataCenter* SSingleton<CDataCenter>::ms_Singleton = NULL;
 
 bool CDataCenter::IsExistDev(LPCSTR udid)
 {
