@@ -5,7 +5,8 @@
   <text pos="10,[5">版权所有：启程软件</text>
   <edit pos="10,[5,@150,@30" readOnly="1">QQ群：229313785</edit>
   <link href="http://jq.qq.com/?_wv=1027&k=PxXh59"  class="cls_btn_weblink">点击链接申请加入群</link>
-  <edit pos="10,[10,@500,@30"  readOnly="1">SVN：http://code.taobao.org/svn/soui2/trunk</edit>
+  <text pos="10,[5">GIT:</text>
+  <link href="https://github.com/soui2/soui/" class="cls_btn_weblink">https://github.com/soui2/soui/</link>
   <text pos="10,[5">SOUI教程:</text>
   <link href="http://www.cnblogs.com/setoutsoft/" class="cls_btn_weblink">http://www.cnblogs.com/setoutsoft/</link>
   <group pos="10,[5,-10,@100" align="left">
