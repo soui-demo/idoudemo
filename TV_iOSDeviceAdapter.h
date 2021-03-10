@@ -117,16 +117,16 @@ public:
 			default:
 				break;
 			}
-			if (pItem->GetState() & WndState_Check)
-			{
-				//pItem->FindChildByID(R.id.bkwnd)->SetAttribute(L"skin", L"skin_bk");
-				((SItemPanel*)pItem)->SetSkin(GETSKIN(L"skin_bk",100));
-			}
-			else
-			{
-				//pItem->FindChildByID(R.id.bkwnd)->SetAttribute(L"skin", L"");
-				((SItemPanel*)pItem)->SetSkin(NULL);
-			}			
+			//if (pItem->GetState() & WndState_Check)
+			//{
+			//	//pItem->FindChildByID(R.id.bkwnd)->SetAttribute(L"skin", L"skin_bk");
+			//	((SItemPanel*)pItem)->SetSkin(GETSKIN(L"skin_bk",100));
+			//}
+			//else
+			//{
+			//	//pItem->FindChildByID(R.id.bkwnd)->SetAttribute(L"skin", L"");
+			//	((SItemPanel*)pItem)->SetSkin(NULL);
+			//}			
 		}
 	}
 
@@ -216,7 +216,7 @@ protected:
 			item.nCmd = i;
 			InsertItem(item, hRoot);
 		}
-		notifyBranchInvalidated(ITEM_ROOT);
+		notifyBranchChanged(ITEM_ROOT);
 	}
 	void SetDevCan(LPCSTR id, bool can = true)
 	{

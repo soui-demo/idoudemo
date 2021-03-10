@@ -15,11 +15,7 @@ namespace SOUI
 	bool SDemoSkin::SetImage(IBitmap *pImg)
 	{
 		m_bSave = true;
-		if (m_pImg)
-			m_pImg->Release();
-		m_pImg = pImg;
-		if (m_pImg)
-		 m_pImg->AddRef();
+		__super::SetImage(pImg);
 		return true;
 	}
 
@@ -50,14 +46,14 @@ namespace SOUI
 	{
 		m_FilePath.Empty();
 		m_bIsColor = false;
-		m_pImg = NULL;
+		SetImage(NULL);
 	}
 
-	SIZE SDemoSkin::GetSkinSize()
+	SIZE SDemoSkin::GetSkinSize()const
 	{		
 		SIZE ret = { 0, 0 };
-		if (m_pImg)
-			ret = m_pImg->Size();
+		if (GetImage())
+			ret = GetImage()->Size();
 		return ret;
 	}
 
@@ -120,19 +116,26 @@ namespace SOUI
 		m_ISetOrLoadSkinHandler = skinhander;
 	}
 
-	void SDemoSkin::_Draw(IRenderTarget * pRT, LPCRECT rcDraw, DWORD dwState, BYTE byAlpha)
+	void SDemoSkin::_DrawByIndex(IRenderTarget* pRT, LPCRECT rcDraw, int iState, BYTE byAlpha) const
 	{
 		if (m_bIsColor)
-		{			
-			COLORREF bkColor = m_bkColor | (byAlpha << 24);
+		{
+			COLORREF bkColor;
+			//设置了皮肤透明度则使用皮肤的透明度
+			if (byAlpha != 0xFF)
+			{
+				bkColor = m_bkColor & ((byAlpha << 24)|0xffffff);
+			}
+			else
+				bkColor = m_bkColor | (byAlpha << 24);
 			pRT->FillSolidRect(rcDraw, bkColor);
 		}
-		else if (m_pImg)
+		else if (GetImage())
 		{
 			SIZE sz = GetSkinSize();
 			CPoint pt(0, 0);
 			CRect rcSour(pt, sz);
-			pRT->DrawBitmap9Patch(rcDraw, m_pImg, &rcSour, &m_rcMargin, GetExpandMode(), byAlpha);
+			pRT->DrawBitmap9Patch(rcDraw, GetImage(), &rcSour, &m_rcMargin, GetExpandMode(), byAlpha);
 		}		
 	}	
 
@@ -140,8 +143,8 @@ namespace SOUI
 	{
 		if (m_bIsColor)
 			return m_bkColor;
-		else if (m_pImg)
-			return SDIBHelper::CalcAvarageColor(m_pImg);
+		else if (GetImage())
+			return SDIBHelper::CalcAvarageColor(GetImage());
 		else
 			return CR_INVALID;
 	}
